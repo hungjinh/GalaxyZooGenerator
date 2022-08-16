@@ -1,6 +1,10 @@
 # specific ignore files for this repo
 *.npy
+*.pkl
+
 notebooks/develop/*
+experiments/*
+
 
 # Compiled source
 *.o

@@ -6,7 +6,7 @@ gpu_device : 0
 workers    : 2
 
 dir_image   : /home/hhg/Research/galaxyClassify/catalog/galaxyZoo_kaggle/gz2_images/images
-file_csv    : /home/hhg/Research/galaxyClassify/catalog/galaxyZoo/zoo2/gz2_all_small_v2.csv
+file_csv    : /home/hhg/Research/galaxyClassify/catalog/galaxyZoo/zoo2/gz2_all_small_v2.csv # (gz2_all_v2.csv)
 label_tag   : label_8
 num_classes : 8
 #class_weights : [4.6, 4.0, 20.9, 9.6, 7.7, 5.1, 26.5, 73.3]

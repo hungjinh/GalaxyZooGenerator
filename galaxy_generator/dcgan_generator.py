@@ -77,10 +77,10 @@ class DCGAN_Generator(BaseTrainer):
 
     def _init_optimizer(self):
         # define optimizers for both generator and discriminator
-        self.optimG = torch.optim.Adam(self.netG.parameters(), lr=self.lr_g, betas=(self.beta1, self.beta2))
-        self.optimD = torch.optim.Adam(self.netD.parameters(), lr=self.lr_d, betas=(self.beta1, self.beta2))
-        self.schedulerG = optim.lr_scheduler.StepLR(self.optimG, step_size=self.step_size_g, gamma=self.gamma_g)
-        self.schedulerD = optim.lr_scheduler.StepLR(self.optimD, step_size=self.step_size_d, gamma=self.gamma_d)
+        self.optimG = torch.optim.Adam(self.netG.parameters(), lr=self.lr_G, betas=(self.beta1, self.beta2))
+        self.optimD = torch.optim.Adam(self.netD.parameters(), lr=self.lr_D, betas=(self.beta1, self.beta2))
+        self.schedulerG = optim.lr_scheduler.StepLR(self.optimG, step_size=self.step_size_G, gamma=self.gamma_G)
+        self.schedulerD = optim.lr_scheduler.StepLR(self.optimD, step_size=self.step_size_D, gamma=self.gamma_D)
 
     def _init_storage(self):
         '''initialize storage dictionary and directory to save training information'''

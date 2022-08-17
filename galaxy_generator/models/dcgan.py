@@ -16,7 +16,7 @@ class Generator(nn.Module):
         super(Generator, self).__init__()
         self.ngpu = config.ngpu
         nz = config.n_zlatent
-        ngf = config.n_filter_g
+        ngf = config.n_filter_G
         nc = config.n_channel
 
         self.main = nn.Sequential(
@@ -56,7 +56,7 @@ class Discriminator(nn.Module):
     def __init__(self, config):
         super().__init__()
         self.ngpu = config.ngpu
-        ndf = config.n_filter_d
+        ndf = config.n_filter_D
         nc = config.n_channel
 
         self.main = nn.Sequential(

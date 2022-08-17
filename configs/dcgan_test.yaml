@@ -26,15 +26,18 @@ n_zlatent: 50         # Size of z latent vector as generator input (nz)
 n_filter_g: 64        # Size of feature maps in generator (ngf)
 n_filter_d: 64        # Size of feature maps in discriminator (ngd)
 
-num_epochs : 3
+num_epochs : 6
 batch_size : 16
 lr_g       : 0.0002          # Learning rate for generator optimizer
 lr_d       : 0.0002          # Learning rate for discriminator optimizer
 beta1      : 0.5             # Beta1 hyperparam for Adam optimizers
 beta2      : 0.999           # Beta2 hyperparam for Adam optimizers
 
-#step_size  : 5                # period of learning rate decay
-#gamma      : 0.1              # multiplicative factor of learning rate decay
+step_size_g  : 2             # period of learning rate decay for generator optimizer
+step_size_d  : 2             # period of learning rate decay for discriminator optimizer
+gamma_g    : 0.1             # multiplicative factor of learning rate decay for generator optimizer
+gamma_d    : 0.1             # multiplicative factor of learning rate decay for discriminator optimizer
+
 #early_stop_threshold : 10
 
 dir_output : /home/hhg/Research/galaxyClassify/repo/GalaxyZooGenerator/experiments

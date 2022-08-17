@@ -15,6 +15,7 @@ import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader
 import torchvision.utils as vutils
+import torch.optim as optim
 
 
 class DCGAN_Generator(BaseTrainer):
@@ -76,10 +77,10 @@ class DCGAN_Generator(BaseTrainer):
 
     def _init_optimizer(self):
         # define optimizers for both generator and discriminator
-        self.optimG = torch.optim.Adam(self.netG.parameters(), lr=self.lr_g,
-                                       betas=(self.beta1, self.beta2))
-        self.optimD = torch.optim.Adam(self.netD.parameters(), lr=self.lr_d,
-                                       betas=(self.beta1, self.beta2))
+        self.optimG = torch.optim.Adam(self.netG.parameters(), lr=self.lr_g, betas=(self.beta1, self.beta2))
+        self.optimD = torch.optim.Adam(self.netD.parameters(), lr=self.lr_d, betas=(self.beta1, self.beta2))
+        self.schedulerG = optim.lr_scheduler.StepLR(self.optimG, step_size=self.step_size_g, gamma=self.gamma_g)
+        self.schedulerD = optim.lr_scheduler.StepLR(self.optimD, step_size=self.step_size_d, gamma=self.gamma_d)
 
     def _init_storage(self):
         '''initialize storage dictionary and directory to save training information'''
@@ -105,7 +106,7 @@ class DCGAN_Generator(BaseTrainer):
         os.makedirs(self.dir_checkpoints)
 
         # ------ trainInfo ------
-        save_key = ['loss_G', 'loss_D', 'epoch_loss_G', 'epoch_loss_D', 'lr']
+        save_key = ['loss_G', 'loss_D', 'epoch_loss_G', 'epoch_loss_D', 'lr_G', 'lr_D']
         self.trainInfo = {}
         for key in save_key:
             self.trainInfo[key] = []
@@ -124,7 +125,9 @@ class DCGAN_Generator(BaseTrainer):
             'G_state_dict': self.netG.state_dict(),
             'D_state_dict': self.netD.state_dict(),
             'G_optimizer': self.optimG.state_dict(),
-            'D_optimizer': self.optimD.state_dict()
+            'D_optimizer': self.optimD.state_dict(),
+            'schedulerG_state': self.schedulerG.state_dict(),
+            'schedulerD_state': self.schedulerD.state_dict()
         }
 
         #outfile_statInfo = os.path.join(self.dir_exp, f'stateInfo_{self.current_iteration}.pth')
@@ -208,16 +211,18 @@ class DCGAN_Generator(BaseTrainer):
 
         avg_epoch_loss_G = running_loss_G/len(self.dataset)
         avg_epoch_loss_D = running_loss_D/len(self.dataset)
-
         self.trainInfo['epoch_loss_G'].append(avg_epoch_loss_G)
         self.trainInfo['epoch_loss_D'].append(avg_epoch_loss_D)
 
-        print(
-            f'\tTraining at epoch-{self.current_epoch} | avg. netD loss: {avg_epoch_loss_D:.3f} | avg. netG loss {avg_epoch_loss_G:.3f}')
+        self.trainInfo['lr_G'].append(self.schedulerG.get_last_lr()[0]) # save lr / epoch
+        self.trainInfo['lr_D'].append(self.schedulerD.get_last_lr()[0])
+        self.schedulerG.step()
+        self.schedulerD.step()
+
+        print(f'\tTraining at epoch-{self.current_epoch} | avg. netD loss: {avg_epoch_loss_D:.3f} | avg. netG loss {avg_epoch_loss_G:.3f}')
 
         time_elapsed = time.time() - since
-        print(
-            f'\tRun time per epoch: {time_elapsed//60:.0f}m {time_elapsed%60:.0f}s')
+        print(f'\tRun time per epoch: {time_elapsed//60:.0f}m {time_elapsed%60:.0f}s')
 
     def train(self):
 

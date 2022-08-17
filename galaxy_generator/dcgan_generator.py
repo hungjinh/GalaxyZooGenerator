@@ -219,7 +219,7 @@ class DCGAN_Generator(BaseTrainer):
         self.schedulerG.step()
         self.schedulerD.step()
 
-        print(f'\tTraining at epoch-{self.current_epoch} | avg. netD loss: {avg_epoch_loss_D:.3f} | avg. netG loss {avg_epoch_loss_G:.3f}')
+        print(f'\tTraining at epochID-{self.current_epoch} | avg. netD loss: {avg_epoch_loss_D:.3f} | avg. netG loss {avg_epoch_loss_G:.3f}')
 
         time_elapsed = time.time() - since
         print(f'\tRun time per epoch: {time_elapsed//60:.0f}m {time_elapsed%60:.0f}s')

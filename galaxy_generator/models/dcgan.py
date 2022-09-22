@@ -1,5 +1,8 @@
-import torch.nn as nn
+''' DCGAN Generator & Discriminator Networks
+Reference : https://pytorch.org/tutorials/beginner/dcgan_faces_tutorial.html
+'''
 
+import torch.nn as nn
 
 def weights_init(m):
     '''custom weights initialization called on netG and netD'''

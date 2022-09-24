@@ -1,3 +1,4 @@
+import argparse
 import os
 import sys
 dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -14,11 +15,11 @@ def main(args=None):
             >> cd /home/hhg/Research/galaxyClassify/repo/GalaxyZooGenerator/
             >> mkdir experiments
             >> python3 bin/train_dcgan.py --config configs/dcgan_test.yaml > experiments/test.log
+            >> python3 bin/train_dcgan.py --config configs/dcgan_run0.yaml > experiments/run0.log
         
         p.s. To delete the test file
             >> rm -rf ./experiments/TestDCGAN/
     '''
-    import argparse
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--config', required=True,

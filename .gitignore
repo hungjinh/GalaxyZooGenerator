@@ -3,7 +3,10 @@
 *.pkl
 
 notebooks/develop/*
+
 experiments/*
+!experiments/run0.log
+
 temp/*
 
 # Compiled source

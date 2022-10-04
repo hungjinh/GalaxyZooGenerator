@@ -17,6 +17,7 @@ def main(args=None):
             >> python3 bin/train_dcgan.py --config configs/dcgan_test.yaml > experiments/test.log
             >> python3 bin/train_dcgan.py --config configs/dcgan_run0.yaml > experiments/run0.log
             >> python3 bin/train_dcgan.py --config configs/dcgan_run1.yaml > experiments/run1.log
+            >> python3 bin/train_dcgan.py --config configs/dcgan_run2.yaml > experiments/run2.log
         
         p.s. To delete the test file
             >> rm -rf ./experiments/TestDCGAN/

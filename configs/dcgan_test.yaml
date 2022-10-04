@@ -1,0 +1,49 @@
+exp_name   : TestDCGAN  # (run0)
+
+cuda       : True
+ngpu       : 1
+gpu_device : 1
+workers    : 2
+
+dir_image   : /home/hhg/Research/galaxyClassify/catalog/galaxyZoo_kaggle/gz2_images/images
+file_csv    : /home/hhg/Research/galaxyClassify/catalog/galaxyZoo/zoo2/gz2_all_small_v2.csv # (gz2_all_v2.csv)
+label_tag   : label_8
+num_classes : 8
+#class_weights : [4.6, 4.0, 20.9, 9.6, 7.7, 5.1, 26.5, 73.3]
+class_weights : [1., 1., 1., 1., 1., 1., 1. , 1.]
+
+seed        : 3         # radnom seed for train-valid-test splits
+#norm_mean   : [0.485, 0.456, 0.406]
+#norm_std    : [0.229, 0.224, 0.225]
+norm_mean   : [0.0940, 0.0815, 0.0630]     # full galaxy image dataset mean
+norm_std    : [0.1303, 0.1100, 0.0913]     # ......................... std
+
+crop_size   : 224     # CenterCrop pixel size of the original galaxy images
+input_size  : 64      # spatial size of training images. All images will be resized to this with the transformer.
+n_channel   : 3       # Number of channels in the training images
+
+n_zlatent: 50         # Size of z latent vector as generator input (nz)
+n_filter_G: 64        # Size of feature maps in generator (ngf)
+n_filter_D: 64        # Size of feature maps in discriminator (ngd)
+
+num_epochs : 6      # (100)
+batch_size : 16     # (64)
+lr_G       : 0.001           # Learning rate for generator optimizer
+lr_D       : 0.001           # Learning rate for discriminator optimizer
+beta1      : 0.5             # Beta1 hyperparam for Adam optimizers
+beta2      : 0.999           # Beta2 hyperparam for Adam optimizers
+
+step_size_G  : 2             # period of learning rate decay for generator optimizer
+step_size_D  : 2             # period of learning rate decay for discriminator optimizer
+gamma_G    : 0.1             # multiplicative factor of learning rate decay for generator optimizer
+gamma_D    : 0.1             # multiplicative factor of learning rate decay for discriminator optimizer
+
+#early_stop_threshold : 10
+
+dir_output : /home/hhg/Research/galaxyClassify/repo/GalaxyZooGenerator/experiments 
+                    # (/home/hhg/Research/galaxyClassify/repo/GalaxyZooGenerator/experiments/dcgan)
+
+# --- --- generator image output setting --- --- 
+nrow       : 4      # (8)      # input arg to torchvision.utils.make_grid (image display) (better to be sqrt(batch_size))
+dpi        : 400    # (100)
+freq_img   : 10               # frequency to output generator images (save an image for every freq_img iterations).

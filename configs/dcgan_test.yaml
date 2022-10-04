@@ -2,7 +2,7 @@ exp_name   : TestDCGAN  # (run0)
 
 cuda       : True
 ngpu       : 1
-gpu_device : 0
+gpu_device : 1
 workers    : 2
 
 dir_image   : /home/hhg/Research/galaxyClassify/catalog/galaxyZoo_kaggle/gz2_images/images
@@ -28,8 +28,8 @@ n_filter_D: 64        # Size of feature maps in discriminator (ngd)
 
 num_epochs : 6      # (100)
 batch_size : 16     # (64)
-lr_G       : 0.0002          # Learning rate for generator optimizer
-lr_D       : 0.0002          # Learning rate for discriminator optimizer
+lr_G       : 0.001           # Learning rate for generator optimizer
+lr_D       : 0.001           # Learning rate for discriminator optimizer
 beta1      : 0.5             # Beta1 hyperparam for Adam optimizers
 beta2      : 0.999           # Beta2 hyperparam for Adam optimizers
 

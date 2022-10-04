@@ -14,8 +14,8 @@ def main(args=None):
             run a test (on genie)
             >> cd /home/hhg/Research/galaxyClassify/repo/GalaxyZooGenerator/
             >> mkdir experiments
-            >> python3 bin/train_dcgan.py --config configs/dcgan_test.yaml > experiments/test.log
-            >> python3 bin/train_dcgan.py --config configs/dcgan_run0.yaml > experiments/run0.log
+            >> python3 bin/train_dcgan.py --config configs/dcgan_test.yaml > experiments/dcgan_test.log
+            >> python3 bin/train_dcgan.py --config configs/dcgan_run0.yaml > experiments/dcgan_run0.log
             >> python3 bin/train_dcgan.py --config configs/dcgan_run3.yaml > experiments/run3.log
         
         p.s. To delete the test file

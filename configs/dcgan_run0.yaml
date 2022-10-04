@@ -1,4 +1,4 @@
-exp_name   : run0  # (run0)
+exp_name   : dcgan_run0  # (run0)
 
 cuda       : True
 ngpu       : 1
@@ -26,7 +26,7 @@ n_zlatent: 50         # Size of z latent vector as generator input (nz)
 n_filter_G: 64        # Size of feature maps in generator (ngf)
 n_filter_D: 64        # Size of feature maps in discriminator (ngd)
 
-num_epochs : 100    # (100)
+num_epochs : 30     # (30)
 batch_size : 64     # (64)
 lr_G       : 0.001           # Learning rate for generator optimizer
 lr_D       : 0.001           # Learning rate for discriminator optimizer
@@ -46,4 +46,4 @@ dir_output : /home/hhg/Research/galaxyClassify/repo/GalaxyZooGenerator/experimen
 # --- --- generator image output setting --- --- 
 nrow       : 8      # (8)     # input arg to torchvision.utils.make_grid (image display) (better to be sqrt(batch_size))
 dpi        : 100    # (100)
-freq_img   : 10               # frequency to output generator images (save an image for every freq_img iterations).
+freq_img   : 500              # frequency to output generator images (save an image for every freq_img iterations).

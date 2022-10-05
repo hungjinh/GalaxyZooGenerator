@@ -5,7 +5,7 @@
 notebooks/develop/*
 
 experiments/*
-!experiments/run0.log
+!experiments/dcgan_run0.log
 
 temp/*
 

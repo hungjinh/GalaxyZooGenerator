@@ -7,6 +7,10 @@ notebooks/develop/*
 experiments/*
 !experiments/dcgan_run0.log
 
+configs/*
+!configs/dcgan_run0.yaml
+!configs/dcgan_test.yaml
+
 temp/*
 
 # Compiled source

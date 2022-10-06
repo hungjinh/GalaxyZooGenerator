@@ -12,38 +12,44 @@ def data_split(file_csv, f_train=0.64, f_valid=0.16, f_test=0.20, random_state=N
             file_csv (str) : path to the full catalog csv file
             f_train, f_valid, f_test : fractions of training, validation, test samples
             stats (bool): display splitting statistics if True 
-        Returns:
+        Returns (if f_test != 0):
             df_train (pd.dataframes) : splitted training sample
             df_valid (pd.dataframes) :          validation
             df_test  (pd.dataframes) :          test
+        Returns (if f_test == 0):
+            df_train (pd.dataframes) : splitted training sample
+            df_valid (pd.dataframes) :          validation
     '''
     assert f_train + f_valid + f_test == 1, 'fractions have to sum to 1.'
 
     df = pd.read_csv(file_csv)
 
-    df_train, df_temp = train_test_split(
-        df, train_size=f_train, random_state=random_state)
-    relative_f_valid = f_valid/(f_valid+f_test)
-    df_valid, df_test = train_test_split(
-        df_temp, train_size=relative_f_valid, random_state=random_state)
+    df_train, df_temp = train_test_split(df, train_size=f_train, random_state=random_state)
+
+    if f_test != 0. :
+        relative_f_valid = f_valid/(f_valid+f_test)
+        df_valid, df_test = train_test_split(df_temp, train_size=relative_f_valid, random_state=random_state)
+    else : # if f_test = 0, only splits dataset into 2 parts : training and validation
+        df_valid = df_temp
 
     if stats:
-        df_stats = df.groupby([label_tag])[label_tag].agg(
-            'count').to_frame('count').reset_index()
+        df_stats = df.groupby([label_tag])[label_tag].agg('count').to_frame('count').reset_index()
         df_stats['full'] = df_stats['count']/df_stats['count'].sum()
-        df_stats['train'] = df_train.groupby(
-            [label_tag]).size()/df_train.groupby([label_tag]).size().sum()
-        df_stats['valid'] = df_valid.groupby(
-            [label_tag]).size()/df_valid.groupby([label_tag]).size().sum()
-        df_stats['test'] = df_test.groupby(
-            [label_tag]).size()/df_test.groupby([label_tag]).size().sum()
+        df_stats['train'] = df_train.groupby([label_tag]).size()/df_train.groupby([label_tag]).size().sum()
+        df_stats['valid'] = df_valid.groupby([label_tag]).size()/df_valid.groupby([label_tag]).size().sum()
 
-        ax = df_stats.plot.bar(
-            x=label_tag, y=['full', 'train', 'valid', 'test'], rot=0)
+        if f_test != 0. :
+            df_stats['test'] = df_test.groupby([label_tag]).size()/df_test.groupby([label_tag]).size().sum()
+            ax = df_stats.plot.bar(x=label_tag, y=['full', 'train', 'valid', 'test'], rot=0)
+        else :
+            ax = df_stats.plot.bar(x=label_tag, y=['full', 'train', 'valid'], rot=0)
+
         ax.set_ylabel('class fraction')
 
-    return df_train.reset_index(drop=True), df_valid.reset_index(drop=True), df_test.reset_index(drop=True)
-
+    if f_test != 0. :
+        return df_train.reset_index(drop=True), df_valid.reset_index(drop=True), df_test.reset_index(drop=True)
+    else :
+        return df_train.reset_index(drop=True), df_valid.reset_index(drop=True)
 
 class GalaxyZooDataset(Dataset):
     '''Galaxy Zoo 2 image dataset

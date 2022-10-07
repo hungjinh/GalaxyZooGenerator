@@ -15,6 +15,9 @@ import torchvision.transforms as transforms
 from galaxy_generator.models.vae import VAE
 from galaxy_generator.utils import display_layer_dimensions
 
+import torch
+import torch.nn as nn
+
 class VAE_Generator(BaseTrainer):
 
     def __init__(self, config):
@@ -64,3 +67,19 @@ class VAE_Generator(BaseTrainer):
 
         print('\n------ Decoder Output Layer Dimensions ------\n')
         display_layer_dimensions(self.model.decoder, (1, self.n_zlatent))
+
+    def loss(self, x_hat, x, mu, logvar):
+        '''
+            Parameters:
+                x_hat : generator image
+                x     : target image
+            
+            Note : 
+                Use BCE because each pixel in x or x_hat ranges from [0,1].
+                KLD : KL divergence = 0.5 * sum(σ^2 - log(σ^2)-1 + μ^2)
+                      logvar.exp() = σ^2
+        '''
+
+        BCE = nn.functional.binary_cross_entropy(x_hat, x, reduction='sum')
+        KLD = 0.5 * torch.sum(logvar.exp() - logvar - 1 + mu.pow(2))
+        return BCE + KLD

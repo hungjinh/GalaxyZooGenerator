@@ -10,7 +10,7 @@ class VAE(nn.Module):
         nc = config.n_channel
         nfe = config.n_filter_E
         nfd = config.n_filter_D
-        nz = config.n_zlatent
+        self.nz = config.n_zlatent
 
         self.encoder = nn.Sequential(
             nn.Conv2d(nc, nfe, 4, 2, 1, bias=False),
@@ -28,14 +28,14 @@ class VAE(nn.Module):
             nn.BatchNorm2d(nfe*8), 
             nn.LeakyReLU(0.2, inplace=True),
 
-            nn.Conv2d(nfe*8, nz*4, 4, 1, 0, bias=False),
+            nn.Conv2d(nfe*8, self.nz*4, 4, 1, 0, bias=False),
             nn.LeakyReLU(0.2, inplace=True),
             nn.Flatten(),
-            nn.Linear(nz*4, nz*2)
+            nn.Linear(self.nz*4, self.nz*2)
         )
 
         self.decoder = nn.Sequential(
-            nn.Linear(nz, nfd),
+            nn.Linear(self.nz, nfd),
             nn.Unflatten(1, (nfd, 1, 1)),
 
             nn.ConvTranspose2d(nfd, nfd*8, 4, 1, 0, bias=False),
@@ -76,5 +76,5 @@ class VAE(nn.Module):
         mu_logvar = self.encoder(x).view(-1, 2, self.nz)
         mu = mu_logvar[:, 0, :]
         logvar = mu_logvar[:, 1, :]
-        z = self.reparameterise(mu, logvar)
+        z = self.reparameterize(mu, logvar)
         return self.decoder(z), mu, logvar

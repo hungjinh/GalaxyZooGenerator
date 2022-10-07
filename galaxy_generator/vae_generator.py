@@ -1,5 +1,6 @@
 
 import os
+import copy
 import time
 import pickle
 import numpy as np
@@ -90,3 +91,131 @@ class VAE_Generator(BaseTrainer):
         self.optimizer = optim.Adam(self.model.parameters(), lr=self.lr, betas=(self.beta1, self.beta2))
         self.scheduler = optim.lr_scheduler.StepLR(self.optimizer, step_size=self.step_size, gamma=self.gamma)
 
+    def _init_storage(self):
+        '''initialize storage dictionary and directory to save training information'''
+
+        # ------ create storage directory ------
+        print('\n------ Create experiment directory ------\n')
+        try:
+            os.makedirs(self.dir_exp)
+        except (FileExistsError, OSError) as err:
+            raise FileExistsError(
+                f'Default save directory {self.dir_exp} already exit. Change exp_name!') from err
+        print(
+            f'Training information will be stored at :\n \t {self.dir_exp}\n')
+
+        # ------ create 'checkpoints' directory to store 'self.statInfo_{epochID}.pth'
+        os.makedirs(self.dir_checkpoints)
+
+        # ------ trainInfo ------
+        save_key = ['train_loss', 'valid_loss', 'epoch_train_loss',
+                    'epoch_valid_loss', 'lr', 'valid_means', 'valid_logvars', 'valid_labels']
+        self.trainInfo = {}
+        for key in save_key:
+            self.trainInfo[key] = []
+
+    def _save_checkpoint(self, epochID):
+
+        with open(self.file_trainInfo, 'wb') as handle:
+            pickle.dump(self.trainInfo, handle)
+
+        self.statInfo = {
+            'epoch': epochID,
+            'iteration': self.current_iteration,
+            'model_state_dict': self.model.state_dict(),
+            'optimizer_state_dict': self.optimizer.state_dict(),
+            'scheduler_state_dict': self.scheduler.state_dict(),
+        }
+
+        outfile_statInfo = os.path.join(self.dir_checkpoints, f'stateInfo_{epochID}.pth')
+        torch.save(self.statInfo, outfile_statInfo)
+
+    def _train_one_epoch(self):
+
+        # ------ Training Loop ------
+        self.model.train()
+
+        running_train_loss = 0.0  # to store the sum of loss for 1 epoch
+        for id_batch, x in enumerate(self.dataloader['train']):
+            #gal_label = x[1]
+            x = x[0].to(self.device)
+            # <--- forward --->
+            x_hat, mu, logvar = self.model(x)
+            loss = self.loss(x_hat, x, mu, logvar)
+            
+            # <--- backward --->
+            self.optimizer.zero_grad()
+            loss.backward()
+            self.optimizer.step()
+
+            self.trainInfo['train_loss'].append(loss.item()/x.size(0))
+            running_train_loss += loss.item()
+
+            self.current_iteration += 1
+
+
+        avg_epoch_train_loss = running_train_loss/len(self.dataloader['train'].dataset)
+        print(f'\t\t avg. train  loss : {avg_epoch_train_loss:.3f}')
+        self.trainInfo['epoch_train_loss'].append(avg_epoch_train_loss)
+
+        # ------ Validation Loop ------
+        means = []
+        logvars = []
+        labels = []
+        with torch.no_grad():
+            self.model.eval() 
+
+            running_valid_loss = 0.0
+            for x, label in self.dataloader['valid']:
+                x = x.to(self.device)
+                x_hat, mu, logvar = self.model(x)
+                loss = self.loss(x_hat, x, mu, logvar)
+
+                self.trainInfo['valid_loss'].append(loss.item()/x.size(0))
+                running_valid_loss += loss.item()
+
+                means.append(mu.detach())
+                logvars.append(logvar.detach())
+                labels.append(label.detach())
+        
+        avg_epoch_valid_loss = running_valid_loss/len(self.dataloader['valid'].dataset)
+        print(f'\t\t avg. valid  loss : {avg_epoch_valid_loss:.3f}')
+        self.trainInfo['epoch_valid_loss'].append(avg_epoch_valid_loss)
+
+        self.trainInfo['valid_means'].append(torch.cat(means))
+        self.trainInfo['valid_logvars'].append(torch.cat(logvars))
+        self.trainInfo['valid_labels'].append(torch.cat(labels))
+
+
+    def train(self):
+
+        self._init_storage()
+        self.current_iteration = 0
+        self.min_valid_loss = float('inf')
+
+        for epochID in range(self.num_epochs):
+
+            print(f'--- Epoch {epochID+1}/{self.num_epochs} ---')
+
+            since = time.time()
+            
+            self._train_one_epoch()
+            self._save_checkpoint(epochID)
+
+            self.trainInfo['lr'].append(self.scheduler.get_last_lr()[0]) # save lr / epoch
+            self.scheduler.step()
+
+            # check if is at the best epoch -> deep copy the model
+            if self.trainInfo['epoch_valid_loss'][-1] < self.min_valid_loss:
+                self.min_valid_loss = self.trainInfo['epoch_valid_loss'][-1]
+                self.trainInfo['best_epochID'] = epochID
+                self.trainInfo['best_model_state_dict'] = copy.deepcopy(self.model.state_dict())
+
+            time_elapsed = time.time() - since
+            print(f'\tTime: {time_elapsed//60:.0f}m {time_elapsed%60:.0f}s')
+
+            if epochID - self.trainInfo['best_epochID'] >= self.early_stop_threshold:
+                print(f'Early stopping... (Model did not imporve after {self.early_stop_threshold} epochs)')
+                break
+
+        print(f'Minimum validation loss {self.min_valid_loss} reached at epoch', self.trainInfo['best_epochID']+1)

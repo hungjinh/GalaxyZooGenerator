@@ -34,7 +34,6 @@ gamma      : 0.1             # multiplicative factor of learning rate decay
 early_stop_threshold : 10    # auto stop when the valid_loss doesn't improve anymore for <early_stop_threshold> epochs.
 
 dir_output : /home/hhg/Research/galaxyClassify/repo/GalaxyZooGenerator/experiments 
-                    # (/home/hhg/Research/galaxyClassify/repo/GalaxyZooGenerator/experiments/dcgan)
 
 # --- --- generator image output setting --- --- 
 nrow       : 4      # (8)      # input arg to torchvision.utils.make_grid (image display) (better to be sqrt(batch_size))

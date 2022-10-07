@@ -10,6 +10,7 @@ experiments/*
 configs/*
 !configs/dcgan_run0.yaml
 !configs/dcgan_test.yaml
+!configs/vae_test.yaml
 
 temp/*
 

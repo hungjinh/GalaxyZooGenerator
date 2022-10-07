@@ -17,6 +17,7 @@ from galaxy_generator.utils import display_layer_dimensions
 
 import torch
 import torch.nn as nn
+import torch.optim as optim
 
 class VAE_Generator(BaseTrainer):
 
@@ -25,6 +26,7 @@ class VAE_Generator(BaseTrainer):
         super().__init__(config)
         self._prepare_data()
         self._build_model(config)
+        self._init_optimizer()
 
     def _prepare_data(self):
 
@@ -83,3 +85,8 @@ class VAE_Generator(BaseTrainer):
         BCE = nn.functional.binary_cross_entropy(x_hat, x, reduction='sum')
         KLD = 0.5 * torch.sum(logvar.exp() - logvar - 1 + mu.pow(2))
         return BCE + KLD
+
+    def _init_optimizer(self):
+        self.optimizer = optim.Adam(self.model.parameters(), lr=self.lr, betas=(self.beta1, self.beta2))
+        self.scheduler = optim.lr_scheduler.StepLR(self.optimizer, step_size=self.step_size, gamma=self.gamma)
+

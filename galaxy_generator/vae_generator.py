@@ -8,9 +8,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 from galaxy_generator.base import BaseTrainer
-from galaxy_generator.data_kits import data_split, GalaxyZooDataset, transforms_DCGAN
+from galaxy_generator.data_kits import data_split, GalaxyZooDataset
 from torch.utils.data import DataLoader
-
+import torchvision.transforms as transforms
 
 class VAE_Generator(BaseTrainer):
 
@@ -26,7 +26,15 @@ class VAE_Generator(BaseTrainer):
                                                         self.f_train, self.f_valid, 0, 
                                                         random_state=self.seed, stats=False)
 
-        self.transform = transforms_DCGAN(self.input_size, self.crop_size, self.norm_mean, self.norm_std)
+        self.transform = transforms.Compose([transforms.CenterCrop(self.crop_size),
+                                             transforms.Resize(self.input_size),
+                                             transforms.RandomRotation(90),
+                                             transforms.RandomHorizontalFlip(),
+                                             transforms.RandomVerticalFlip(),
+                                             transforms.RandomResizedCrop(
+                                                self.input_size, scale=(0.85, 1.0), ratio=(0.9, 1.1)),
+                                             transforms.ToTensor()
+                                            ])
 
         self.dataset = {}
         self.dataloader = {}
@@ -37,3 +45,5 @@ class VAE_Generator(BaseTrainer):
         print('\n------ Prepare Data ------\n')
         for key in ['train', 'valid']:
             print(f'Number of {key} galaxies: {len(self.dataset[key])} ({len(self.dataloader[key])} batches)')
+    
+

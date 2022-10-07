@@ -56,3 +56,25 @@ class VAE(nn.Module):
             nn.ConvTranspose2d(nfd, nc, 4, 2, 1, bias=False),
             nn.Sigmoid()
         )
+    
+    def reparameterize(self, mu, logvar):
+        '''
+            Note : 
+                Work with log(σ^2) to assure that σ>=0.
+                And log(var) can range from [-inf, inf].
+        '''
+        if self.training:
+            std = logvar.mul(0.5).exp_()             # σ = exp(1/2 log(σ^2))
+            # ε ~ N(0, 1) (dim = std.size())
+            eps = std.data.new(std.size()).normal_()
+            return eps.mul(std).add_(mu)             # out = mu + ε x σ
+        else:
+            return mu
+
+    def forward(self, x):
+        # reshape the encoder output to be (batchsize, 2, nz)
+        mu_logvar = self.encoder(x).view(-1, 2, self.nz)
+        mu = mu_logvar[:, 0, :]
+        logvar = mu_logvar[:, 1, :]
+        z = self.reparameterise(mu, logvar)
+        return self.decoder(z), mu, logvar

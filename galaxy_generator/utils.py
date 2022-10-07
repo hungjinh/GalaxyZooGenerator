@@ -1,6 +1,6 @@
 import yaml
 from easydict import EasyDict
-
+import torch
 
 def get_config_from_yaml(file_yaml):
     '''Get the config from a yaml file
@@ -17,6 +17,21 @@ def get_config_from_yaml(file_yaml):
         except ValueError:
             print("INVALID yaml file format.")
             exit(-1)
+
+
+def display_layer_dimensions(net, input_dim):
+    '''Display the output dimension of each layer in the given network
+        Parameters :
+            net (nn.Module) : network model
+            input_dim (tuple) : e.g. (1, 3, 224, 224)
+    '''
+    device = next(net.parameters()).device
+    X = torch.randn(input_dim).to(device)
+
+    print('Input shape:\t\t', X.shape)
+    for layer in net:
+        X = layer(X)
+        print(layer.__class__.__name__, 'output shape:\t', X.shape)
 
 
 if __name__ == '__main__':

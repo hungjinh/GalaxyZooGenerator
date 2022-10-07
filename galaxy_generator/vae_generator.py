@@ -4,13 +4,16 @@ import time
 import pickle
 import numpy as np
 import pandas as pd
-
 import matplotlib.pyplot as plt
 
 from galaxy_generator.base import BaseTrainer
+
 from galaxy_generator.data_kits import data_split, GalaxyZooDataset
 from torch.utils.data import DataLoader
 import torchvision.transforms as transforms
+
+from galaxy_generator.models.vae import VAE
+from galaxy_generator.utils import display_layer_dimensions
 
 class VAE_Generator(BaseTrainer):
 
@@ -18,6 +21,7 @@ class VAE_Generator(BaseTrainer):
 
         super().__init__(config)
         self._prepare_data()
+        self._build_model(config)
 
     def _prepare_data(self):
 
@@ -46,4 +50,17 @@ class VAE_Generator(BaseTrainer):
         for key in ['train', 'valid']:
             print(f'Number of {key} galaxies: {len(self.dataset[key])} ({len(self.dataloader[key])} batches)')
     
+    def _build_model(self, config):
 
+        self.model = VAE(config).to(self.device)
+
+        print('\n------ Build Model ------\n')
+        print('Number of trainable parameters')
+        print('Encoder  :', sum(param.numel() for param in self.model.encoder.parameters() if param.requires_grad))
+        print('Decoder  :', sum(param.numel() for param in self.model.decoder.parameters() if param.requires_grad))
+
+        print('\n------ Encoder Output Layer Dimensions ------\n')
+        display_layer_dimensions(self.model.encoder, (1, self.n_channel, self.input_size, self.input_size))
+
+        print('\n------ Decoder Output Layer Dimensions ------\n')
+        display_layer_dimensions(self.model.decoder, (1, self.n_zlatent))

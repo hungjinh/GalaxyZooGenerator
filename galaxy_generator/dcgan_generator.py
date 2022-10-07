@@ -28,8 +28,6 @@ class DCGAN_Generator(BaseTrainer):
         self._define_loss()
         self._init_optimizer()
 
-        self.dir_checkpoints = os.path.join(self.dir_exp, 'checkpoints')
-
         self.Niters_per_epoch = (
             len(self.dataset) + self.batch_size - 1) // self.batch_size
         self.fixed_noise = torch.randn(self.batch_size, self.n_zlatent, 1, 1, device=self.device)

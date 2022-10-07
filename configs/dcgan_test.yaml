@@ -13,10 +13,10 @@ num_classes : 8
 class_weights : [1., 1., 1., 1., 1., 1., 1. , 1.]
 
 seed        : 3         # radnom seed for train-valid-test splits
-#norm_mean   : [0.485, 0.456, 0.406]
-#norm_std    : [0.229, 0.224, 0.225]
-norm_mean   : [0.0940, 0.0815, 0.0630]     # full galaxy image dataset mean
-norm_std    : [0.1303, 0.1100, 0.0913]     # ......................... std
+#norm_mean   : [0.485, 0.456, 0.406]       # full galaxy image dataset mean
+#norm_std    : [0.229, 0.224, 0.225]       # ......................... std
+norm_mean   : [0.0940, 0.0815, 0.0630]     # transforms.Normaliza(mean, ...)
+norm_std    : [0.1303, 0.1100, 0.0913]     # transforms.Normaliza(... , std)
 
 crop_size   : 224     # CenterCrop pixel size of the original galaxy images
 input_size  : 64      # spatial size of training images. All images will be resized to this with the transformer.

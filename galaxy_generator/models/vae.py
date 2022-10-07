@@ -1,6 +1,7 @@
 '''Convolutional Variational Autoencoder Network
 '''
 
+import torch
 import torch.nn as nn
 
 class VAE(nn.Module):
@@ -64,10 +65,9 @@ class VAE(nn.Module):
                 And log(var) can range from [-inf, inf].
         '''
         if self.training:
-            std = logvar.mul(0.5).exp_()             # σ = exp(1/2 log(σ^2))
-            # ε ~ N(0, 1) (dim = std.size())
-            eps = std.data.new(std.size()).normal_()
-            return eps.mul(std).add_(mu)             # out = mu + ε x σ
+            std = logvar.mul(0.5).exp_()    # σ = exp(1/2 log(σ^2))
+            eps = torch.randn_like(std)     # ε ~ N(0, 1) (dim = std.size())
+            return mu + eps * std
         else:
             return mu
 

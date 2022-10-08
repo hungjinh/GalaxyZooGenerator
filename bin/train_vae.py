@@ -4,7 +4,7 @@ import sys
 dir_path = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(dir_path+'/..')
 
-from galaxy_generator.dcgan_generator import DCGAN_Generator
+from galaxy_generator.vae_generator import VAE_Generator
 from galaxy_generator.utils import get_config_from_yaml
 
 
@@ -14,12 +14,12 @@ def main(args=None):
             run a test (on genie)
             >> cd /home/hhg/Research/galaxyClassify/repo/GalaxyZooGenerator/
             >> mkdir experiments
-            >> python3 bin/train_dcgan.py --config configs/dcgan_test.yaml > experiments/dcgan_test.log
-            >> python3 bin/train_dcgan.py --config configs/dcgan_run0.yaml > experiments/dcgan_run0.log
-            >> python3 bin/train_dcgan.py --config configs/dcgan_run3.yaml > experiments/run3.log
+            >> python3 bin/train_vae.py --config configs/vae_test.yaml > experiments/vae_test.log
+            >> python3 bin/train_vae.py --config configs/vae_run0.yaml > experiments/vae_run0.log
+
         
         p.s. To delete the test file
-            >> rm -rf ./experiments/dcgan_test/
+            >> rm -rf ./experiments/vae_test/
     '''
 
     parser = argparse.ArgumentParser()
@@ -30,7 +30,7 @@ def main(args=None):
     print(opt)
 
     config = get_config_from_yaml(opt.config)
-    generator = DCGAN_Generator(config=config)
+    generator = VAE_Generator(config=config)
     generator.train()
 
 

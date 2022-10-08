@@ -1,0 +1,43 @@
+exp_name   : vae_run0  # (run0)
+
+cuda       : True
+gpu_device : 0
+workers    : 2
+
+dir_image   : /home/hhg/Research/galaxyClassify/catalog/galaxyZoo_kaggle/gz2_images/images
+file_csv    : /home/hhg/Research/galaxyClassify/catalog/galaxyZoo/zoo2/gz2_all_v2.csv # (gz2_all_v2.csv)
+label_tag   : label_8
+num_classes : 8
+#class_weights : [4.6, 4.0, 20.9, 9.6, 7.7, 5.1, 26.5, 73.3]
+class_weights : [1., 1., 1., 1., 1., 1., 1. , 1.]
+f_train     : 0.85
+f_valid     : 0.15
+seed        : 3         # radnom seed for train/valid splits
+
+
+crop_size   : 224     # CenterCrop pixel size of the original galaxy images
+input_size  : 64      # spatial size of training images. All images will be resized to this with the transformer.
+n_channel   : 3       # Number of channels in the training images
+
+n_zlatent: 50         # Size of z latent vector as decoder input (nz)
+n_filter_E: 64        # Base size of feature maps for encoder (nef)
+n_filter_D: 64        # Base size of feature maps for decoder (ndf)
+
+num_epochs : 50     # (100)
+batch_size : 64     # (64)
+lr         : 0.001           # Learning rate
+beta1      : 0.5             # Beta1 hyperparam for Adam optimizers
+beta2      : 0.999           # Beta2 hyperparam for Adam optimizers
+
+step_size  : 5               # period of learning rate decay 
+gamma      : 0.1             # multiplicative factor of learning rate decay
+early_stop_threshold : 10    # auto stop when the valid_loss doesn't improve anymore for <early_stop_threshold> epochs.
+
+dir_output : /home/hhg/Research/galaxyClassify/repo/GalaxyZooGenerator/experiments 
+
+# --- --- generator image output setting (while training) --- --- 
+freq_img   : 2              # epoch frequency to output generator images
+                            # (save reconstructed images for every freq_img epoches)
+                            # (no output image if freq_img : 0)
+Ngals      : 9              # number of galaxies sampled from each epoch
+dpi        : 100            # (100)

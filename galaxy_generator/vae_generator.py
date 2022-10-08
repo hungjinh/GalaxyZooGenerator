@@ -19,7 +19,7 @@ from galaxy_generator.utils import display_layer_dimensions
 import torch
 import torch.nn as nn
 import torch.optim as optim
-
+import torchvision.utils as vutils
 class VAE_Generator(BaseTrainer):
 
     def __init__(self, config):
@@ -99,10 +99,12 @@ class VAE_Generator(BaseTrainer):
         try:
             os.makedirs(self.dir_exp)
         except (FileExistsError, OSError) as err:
-            raise FileExistsError(
-                f'Default save directory {self.dir_exp} already exit. Change exp_name!') from err
-        print(
-            f'Training information will be stored at :\n \t {self.dir_exp}\n')
+            raise FileExistsError(f'Default save directory {self.dir_exp} already exit. Change exp_name!') from err
+        print(f'Training information will be stored at :\n \t {self.dir_exp}\n')
+        
+        # ------ create 'genImgs' directory under self.dir_exp to store generator images
+        self.dir_genImgs = os.path.join(self.dir_exp, 'genImgs')
+        os.makedirs(self.dir_genImgs)
 
         # ------ create 'checkpoints' directory to store 'self.statInfo_{epochID}.pth'
         os.makedirs(self.dir_checkpoints)
@@ -166,8 +168,9 @@ class VAE_Generator(BaseTrainer):
             self.model.eval() 
 
             running_valid_loss = 0.0
-            for x, label in self.dataloader['valid']:
-                x = x.to(self.device)
+            for id_batch, x in enumerate(self.dataloader['valid']):
+                label = x[1]
+                x = x[0].to(self.device)
                 x_hat, mu, logvar = self.model(x)
                 loss = self.loss(x_hat, x, mu, logvar)
 
@@ -177,6 +180,21 @@ class VAE_Generator(BaseTrainer):
                 means.append(mu.detach())
                 logvars.append(logvar.detach())
                 labels.append(label.detach())
+
+                # --- show reconstructed images while training ---
+                if self.freq_img > 0 and self.current_epoch % self.freq_img == 0 and id_batch == len(self.dataloader['valid'])-2: # Take 2nd to last batch to make the plot. 
+                    fig = plt.figure(figsize=(16,8))
+                    fig.suptitle(f'EpochID : {self.current_epoch}', fontsize=16)
+                    plt.subplot(1, 2, 1)
+                    self.display_images(x, self.Ngals)
+                    plt.title("Real Galaxies", fontsize=16)
+                    plt.subplot(1, 2, 2)
+                    self.display_images(x_hat, self.Ngals)
+                    plt.title("Reconstructed Galaxies", fontsize=16)
+
+                    file_img = os.path.join(self.dir_genImgs, f'ep{self.current_epoch}.png')
+                    fig.savefig(file_img, dpi=self.dpi, transparent=False, facecolor='white')
+                    plt.close(fig)
         
         avg_epoch_valid_loss = running_valid_loss/len(self.dataloader['valid'].dataset)
         print(f'\t\t avg. valid  loss : {avg_epoch_valid_loss:.3f}')
@@ -190,10 +208,12 @@ class VAE_Generator(BaseTrainer):
     def train(self):
 
         self._init_storage()
+        self.current_epoch = 0
         self.current_iteration = 0
         self.min_valid_loss = float('inf')
 
         for epochID in range(self.num_epochs):
+            self.current_epoch = epochID
 
             print(f'--- Epoch {epochID+1}/{self.num_epochs} ---')
 
@@ -219,3 +239,13 @@ class VAE_Generator(BaseTrainer):
                 break
 
         print(f'Minimum validation loss {self.min_valid_loss} reached at epoch', self.trainInfo['best_epochID']+1)
+
+    def display_images(self, image_tensor, Ngals):
+        '''Display reconstruced galaxy images sampled from validation set
+        '''
+        image_tensor = image_tensor.detach().cpu()
+        img_grid = vutils.make_grid(image_tensor[:Ngals], nrow=int(np.sqrt(Ngals)), padding=1)
+        img_grid = img_grid.permute(1, 2, 0)
+        plt.axis('off')
+        plt.imshow(img_grid)
+        plt.tight_layout()

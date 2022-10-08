@@ -35,7 +35,9 @@ early_stop_threshold : 10    # auto stop when the valid_loss doesn't improve any
 
 dir_output : /home/hhg/Research/galaxyClassify/repo/GalaxyZooGenerator/experiments 
 
-# --- --- generator image output setting --- --- 
-nrow       : 4      # (8)      # input arg to torchvision.utils.make_grid (image display) (better to be sqrt(batch_size))
-dpi        : 300    # (100)
-freq_img   : 64                # frequency to output generator images (save an image for every freq_img iterations).
+# --- --- generator image output setting (while training) --- --- 
+freq_img   : 1              # epoch frequency to output generator images
+                            # (save reconstructed images for every freq_img epoches)
+                            # (no output image if freq_img : 0)
+Ngals      : 9              # number of galaxies sampled from each epoch
+dpi        : 100            # (100)

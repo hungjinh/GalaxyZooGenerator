@@ -240,12 +240,38 @@ class VAE_Generator(BaseTrainer):
 
         print(f'Minimum validation loss {self.min_valid_loss} reached at epoch', self.trainInfo['best_epochID']+1)
 
-    def display_images(self, image_tensor, Ngals):
+    def display_images(self, image_tensor, Ngals, nrow=None):
         '''Display reconstruced galaxy images sampled from validation set
         '''
+        if nrow is None:
+            nrow = int(np.sqrt(Ngals))
+        else:
+            nrow = Ngals//nrow
+
         image_tensor = image_tensor.detach().cpu()
-        img_grid = vutils.make_grid(image_tensor[:Ngals], nrow=int(np.sqrt(Ngals)), padding=1)
+        img_grid = vutils.make_grid(image_tensor[:Ngals], nrow=nrow, padding=1)
         img_grid = img_grid.permute(1, 2, 0)
         plt.axis('off')
         plt.imshow(img_grid)
         plt.tight_layout()
+
+    def gen_galaxy(self, Ngals, epochID, nrow=1):
+        ''' Draw fake galaxy images from the trained generator, given epochID
+
+            Return : 
+                img_grid : np.array 
+                    fake galaxy image that can be displayed with plt.imshow(img_grid). 
+        '''
+
+        outfile_statInfo = os.path.join(self.dir_checkpoints, f'stateInfo_{epochID}.pth')
+        statInfo = torch.load(outfile_statInfo)
+
+        self.model.load_state_dict(statInfo['model_state_dict'])
+        self.model.eval()
+
+        z_random = torch.randn(Ngals, self.n_zlatent, device=self.device)
+        fake_gals = self.model.decoder(z_random).detach().cpu()
+
+        img_grid = np.transpose(vutils.make_grid(fake_gals, padding=2, normalize=True, nrow=Ngals//nrow), (1, 2, 0))
+
+        return img_grid

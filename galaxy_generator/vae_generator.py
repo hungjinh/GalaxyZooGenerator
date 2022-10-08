@@ -272,6 +272,6 @@ class VAE_Generator(BaseTrainer):
         z_random = torch.randn(Ngals, self.n_zlatent, device=self.device)
         fake_gals = self.model.decoder(z_random).detach().cpu()
 
-        img_grid = np.transpose(vutils.make_grid(fake_gals, padding=2, normalize=True, nrow=Ngals//nrow), (1, 2, 0))
+        img_grid = np.transpose(vutils.make_grid(fake_gals, padding=2, normalize=False, nrow=Ngals//nrow), (1, 2, 0))
 
         return img_grid

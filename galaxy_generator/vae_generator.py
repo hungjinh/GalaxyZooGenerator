@@ -238,7 +238,7 @@ class VAE_Generator(BaseTrainer):
                 print(f'Early stopping... (Model did not imporve after {self.early_stop_threshold} epochs)')
                 break
 
-        print(f'Minimum validation loss {self.min_valid_loss} reached at epoch', self.trainInfo['best_epochID']+1)
+        print(f'Minimum validation loss {self.min_valid_loss} reached at epoch', self.trainInfo['best_epochID']+1, '.')
 
     def display_images(self, image_tensor, Ngals, nrow=None):
         '''Display reconstruced galaxy images sampled from validation set

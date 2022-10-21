@@ -16,7 +16,7 @@ def main(args=None):
             >> mkdir experiments
             >> python3 bin/train_vae.py --config configs/vae_test.yaml > experiments/vae_test.log
             >> python3 bin/train_vae.py --config configs/vae_run0.yaml > experiments/vae_run0.log
-
+            >> CUDA_LAUNCH_BLOCKING=1 python3 bin/train_vae.py --config configs/vae_run1.yaml > experiments/vae_run1.log
         
         p.s. To delete the test file
             >> rm -rf ./experiments/vae_test/

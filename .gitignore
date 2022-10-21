@@ -5,7 +5,13 @@
 notebooks/develop/*
 
 experiments/*
-!experiments/run0.log
+!experiments/dcgan_run0.log
+
+configs/*
+!configs/dcgan_run0.yaml
+!configs/dcgan_test.yaml
+!configs/vae_test.yaml
+!configs/vae_run0.yaml
 
 temp/*
 

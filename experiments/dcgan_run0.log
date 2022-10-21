@@ -1,0 +1,263 @@
+Namespace(config='configs/dcgan_run0.yaml')
+
+------ Parameters ------
+
+exp_name : dcgan_run0
+cuda : True
+ngpu : 1
+gpu_device : 0
+workers : 2
+dir_image : /home/hhg/Research/galaxyClassify/catalog/galaxyZoo_kaggle/gz2_images/images
+file_csv : /home/hhg/Research/galaxyClassify/catalog/galaxyZoo/zoo2/gz2_all_v2.csv
+label_tag : label_8
+num_classes : 8
+class_weights : [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+seed : 3
+norm_mean : [0.094, 0.0815, 0.063]
+norm_std : [0.1303, 0.11, 0.0913]
+crop_size : 224
+input_size : 64
+n_channel : 3
+n_zlatent : 50
+n_filter_G : 64
+n_filter_D : 64
+num_epochs : 30
+batch_size : 64
+lr_G : 0.001
+lr_D : 0.001
+beta1 : 0.5
+beta2 : 0.999
+step_size_G : 5
+step_size_D : 5
+gamma_G : 0.1
+gamma_D : 0.1
+dir_output : /home/hhg/Research/galaxyClassify/repo/GalaxyZooGenerator/experiments
+nrow : 8
+dpi : 100
+freq_img : 500
+
+------ Prepare Data ------
+
+Number of training galaxies: 155951 (2437 batches)
+
+------ Build Model ------
+
+Number of trainable parameters
+Generator  : 3167104
+Discriminator  : 3167104
+
+------ Create experiment directory ------
+
+Training information will be stored at :
+ 	 /home/hhg/Research/galaxyClassify/repo/GalaxyZooGenerator/experiments/dcgan_run0
+
+[1/30 epoch] [1 iter]	 loss_D: 1.824 	 loss_G: 16.491	 D(x):0.489 	 D(G(z)): 0.567 / 0.000
+[1/30 epoch] [501 iter]	 loss_D: 1.273 	 loss_G: 1.131	 D(x):0.537 	 D(G(z)): 0.458 / 0.339
+[1/30 epoch] [1001 iter]	 loss_D: 1.367 	 loss_G: 0.591	 D(x):0.437 	 D(G(z)): 0.398 / 0.559
+[1/30 epoch] [1501 iter]	 loss_D: 1.306 	 loss_G: 1.017	 D(x):0.476 	 D(G(z)): 0.400 / 0.372
+[1/30 epoch] [2001 iter]	 loss_D: 1.338 	 loss_G: 1.398	 D(x):0.653 	 D(G(z)): 0.554 / 0.271
+	Training at epochID-0 | avg. netD loss: 1.463 | avg. netG loss 1.303
+	Run time per epoch: 2m 17s
+[2/30 epoch] [2438 iter]	 loss_D: 1.378 	 loss_G: 0.937	 D(x):0.496 	 D(G(z)): 0.421 / 0.413
+[2/30 epoch] [2938 iter]	 loss_D: 1.247 	 loss_G: 1.677	 D(x):0.629 	 D(G(z)): 0.507 / 0.199
+[2/30 epoch] [3438 iter]	 loss_D: 1.482 	 loss_G: 1.060	 D(x):0.494 	 D(G(z)): 0.476 / 0.370
+[2/30 epoch] [3938 iter]	 loss_D: 1.197 	 loss_G: 1.560	 D(x):0.484 	 D(G(z)): 0.303 / 0.249
+[2/30 epoch] [4438 iter]	 loss_D: 1.300 	 loss_G: 1.110	 D(x):0.556 	 D(G(z)): 0.477 / 0.353
+	Training at epochID-1 | avg. netD loss: 1.329 | avg. netG loss 1.343
+	Run time per epoch: 2m 19s
+[3/30 epoch] [4875 iter]	 loss_D: 1.255 	 loss_G: 1.199	 D(x):0.692 	 D(G(z)): 0.559 / 0.322
+[3/30 epoch] [5375 iter]	 loss_D: 1.282 	 loss_G: 0.933	 D(x):0.525 	 D(G(z)): 0.444 / 0.404
+[3/30 epoch] [5875 iter]	 loss_D: 1.347 	 loss_G: 0.882	 D(x):0.476 	 D(G(z)): 0.402 / 0.428
+[3/30 epoch] [6375 iter]	 loss_D: 1.446 	 loss_G: 1.108	 D(x):0.350 	 D(G(z)): 0.297 / 0.341
+[3/30 epoch] [6875 iter]	 loss_D: 1.208 	 loss_G: 1.159	 D(x):0.601 	 D(G(z)): 0.481 / 0.324
+	Training at epochID-2 | avg. netD loss: 1.353 | avg. netG loss 1.045
+	Run time per epoch: 2m 13s
+[4/30 epoch] [7312 iter]	 loss_D: 1.209 	 loss_G: 0.851	 D(x):0.616 	 D(G(z)): 0.494 / 0.442
+[4/30 epoch] [7812 iter]	 loss_D: 1.241 	 loss_G: 1.045	 D(x):0.683 	 D(G(z)): 0.564 / 0.361
+[4/30 epoch] [8312 iter]	 loss_D: 1.317 	 loss_G: 1.118	 D(x):0.511 	 D(G(z)): 0.465 / 0.334
+[4/30 epoch] [8812 iter]	 loss_D: 1.614 	 loss_G: 1.403	 D(x):0.505 	 D(G(z)): 0.591 / 0.254
+[4/30 epoch] [9312 iter]	 loss_D: 1.467 	 loss_G: 0.627	 D(x):0.370 	 D(G(z)): 0.360 / 0.539
+	Training at epochID-3 | avg. netD loss: 1.368 | avg. netG loss 0.936
+	Run time per epoch: 2m 22s
+[5/30 epoch] [9749 iter]	 loss_D: 1.387 	 loss_G: 0.866	 D(x):0.404 	 D(G(z)): 0.359 / 0.425
+[5/30 epoch] [10249 iter]	 loss_D: 1.328 	 loss_G: 0.967	 D(x):0.519 	 D(G(z)): 0.481 / 0.384
+[5/30 epoch] [10749 iter]	 loss_D: 1.353 	 loss_G: 0.811	 D(x):0.500 	 D(G(z)): 0.476 / 0.448
+[5/30 epoch] [11249 iter]	 loss_D: 1.469 	 loss_G: 0.684	 D(x):0.476 	 D(G(z)): 0.507 / 0.507
+[5/30 epoch] [11749 iter]	 loss_D: 1.351 	 loss_G: 0.943	 D(x):0.584 	 D(G(z)): 0.544 / 0.396
+	Training at epochID-4 | avg. netD loss: 1.376 | avg. netG loss 0.867
+	Run time per epoch: 2m 20s
+[6/30 epoch] [12186 iter]	 loss_D: 1.349 	 loss_G: 0.888	 D(x):0.451 	 D(G(z)): 0.411 / 0.417
+[6/30 epoch] [12686 iter]	 loss_D: 1.336 	 loss_G: 0.896	 D(x):0.577 	 D(G(z)): 0.516 / 0.421
+[6/30 epoch] [13186 iter]	 loss_D: 1.055 	 loss_G: 1.051	 D(x):0.595 	 D(G(z)): 0.377 / 0.367
+[6/30 epoch] [13686 iter]	 loss_D: 0.872 	 loss_G: 1.275	 D(x):0.657 	 D(G(z)): 0.326 / 0.312
+[6/30 epoch] [14186 iter]	 loss_D: 0.808 	 loss_G: 1.253	 D(x):0.722 	 D(G(z)): 0.348 / 0.330
+	Training at epochID-5 | avg. netD loss: 1.080 | avg. netG loss 1.126
+	Run time per epoch: 2m 20s
+[7/30 epoch] [14623 iter]	 loss_D: 1.163 	 loss_G: 0.965	 D(x):0.440 	 D(G(z)): 0.194 / 0.408
+[7/30 epoch] [15123 iter]	 loss_D: 0.879 	 loss_G: 1.462	 D(x):0.634 	 D(G(z)): 0.293 / 0.271
+[7/30 epoch] [15623 iter]	 loss_D: 0.809 	 loss_G: 1.706	 D(x):0.731 	 D(G(z)): 0.345 / 0.217
+[7/30 epoch] [16123 iter]	 loss_D: 0.897 	 loss_G: 1.285	 D(x):0.625 	 D(G(z)): 0.308 / 0.311
+[7/30 epoch] [16623 iter]	 loss_D: 0.904 	 loss_G: 1.074	 D(x):0.585 	 D(G(z)): 0.256 / 0.379
+	Training at epochID-6 | avg. netD loss: 0.892 | avg. netG loss 1.413
+	Run time per epoch: 2m 20s
+[8/30 epoch] [17060 iter]	 loss_D: 0.922 	 loss_G: 1.487	 D(x):0.718 	 D(G(z)): 0.408 / 0.252
+[8/30 epoch] [17560 iter]	 loss_D: 0.943 	 loss_G: 1.410	 D(x):0.690 	 D(G(z)): 0.395 / 0.277
+[8/30 epoch] [18060 iter]	 loss_D: 0.937 	 loss_G: 1.416	 D(x):0.610 	 D(G(z)): 0.309 / 0.273
+[8/30 epoch] [18560 iter]	 loss_D: 0.925 	 loss_G: 1.352	 D(x):0.658 	 D(G(z)): 0.359 / 0.288
+[8/30 epoch] [19060 iter]	 loss_D: 0.954 	 loss_G: 1.196	 D(x):0.624 	 D(G(z)): 0.330 / 0.342
+	Training at epochID-7 | avg. netD loss: 0.911 | avg. netG loss 1.401
+	Run time per epoch: 2m 13s
+[9/30 epoch] [19497 iter]	 loss_D: 0.848 	 loss_G: 1.289	 D(x):0.808 	 D(G(z)): 0.446 / 0.311
+[9/30 epoch] [19997 iter]	 loss_D: 0.861 	 loss_G: 0.885	 D(x):0.587 	 D(G(z)): 0.228 / 0.451
+[9/30 epoch] [20497 iter]	 loss_D: 0.900 	 loss_G: 1.020	 D(x):0.715 	 D(G(z)): 0.397 / 0.384
+[9/30 epoch] [20997 iter]	 loss_D: 0.983 	 loss_G: 1.307	 D(x):0.638 	 D(G(z)): 0.377 / 0.293
+[9/30 epoch] [21497 iter]	 loss_D: 0.883 	 loss_G: 1.342	 D(x):0.585 	 D(G(z)): 0.242 / 0.291
+	Training at epochID-8 | avg. netD loss: 0.913 | avg. netG loss 1.409
+	Run time per epoch: 2m 21s
+[10/30 epoch] [21934 iter]	 loss_D: 0.692 	 loss_G: 1.590	 D(x):0.700 	 D(G(z)): 0.249 / 0.232
+[10/30 epoch] [22434 iter]	 loss_D: 0.971 	 loss_G: 1.586	 D(x):0.629 	 D(G(z)): 0.331 / 0.250
+[10/30 epoch] [22934 iter]	 loss_D: 0.797 	 loss_G: 1.685	 D(x):0.807 	 D(G(z)): 0.418 / 0.203
+[10/30 epoch] [23434 iter]	 loss_D: 1.536 	 loss_G: 0.945	 D(x):0.301 	 D(G(z)): 0.177 / 0.442
+[10/30 epoch] [23934 iter]	 loss_D: 1.036 	 loss_G: 1.200	 D(x):0.733 	 D(G(z)): 0.469 / 0.342
+	Training at epochID-9 | avg. netD loss: 0.934 | avg. netG loss 1.404
+	Run time per epoch: 2m 19s
+[11/30 epoch] [24371 iter]	 loss_D: 0.796 	 loss_G: 1.444	 D(x):0.658 	 D(G(z)): 0.267 / 0.267
+[11/30 epoch] [24871 iter]	 loss_D: 0.801 	 loss_G: 1.425	 D(x):0.644 	 D(G(z)): 0.266 / 0.277
+[11/30 epoch] [25371 iter]	 loss_D: 0.850 	 loss_G: 1.238	 D(x):0.660 	 D(G(z)): 0.319 / 0.319
+[11/30 epoch] [25871 iter]	 loss_D: 0.948 	 loss_G: 1.287	 D(x):0.609 	 D(G(z)): 0.322 / 0.323
+[11/30 epoch] [26371 iter]	 loss_D: 0.716 	 loss_G: 1.321	 D(x):0.727 	 D(G(z)): 0.303 / 0.293
+	Training at epochID-10 | avg. netD loss: 0.835 | avg. netG loss 1.265
+	Run time per epoch: 2m 19s
+[12/30 epoch] [26808 iter]	 loss_D: 0.707 	 loss_G: 1.552	 D(x):0.675 	 D(G(z)): 0.236 / 0.240
+[12/30 epoch] [27308 iter]	 loss_D: 0.801 	 loss_G: 1.323	 D(x):0.692 	 D(G(z)): 0.313 / 0.303
+[12/30 epoch] [27808 iter]	 loss_D: 0.711 	 loss_G: 1.335	 D(x):0.723 	 D(G(z)): 0.291 / 0.295
+[12/30 epoch] [28308 iter]	 loss_D: 0.927 	 loss_G: 1.149	 D(x):0.676 	 D(G(z)): 0.374 / 0.356
+[12/30 epoch] [28808 iter]	 loss_D: 0.745 	 loss_G: 1.534	 D(x):0.643 	 D(G(z)): 0.232 / 0.249
+	Training at epochID-11 | avg. netD loss: 0.796 | avg. netG loss 1.315
+	Run time per epoch: 2m 14s
+[13/30 epoch] [29245 iter]	 loss_D: 0.997 	 loss_G: 1.159	 D(x):0.619 	 D(G(z)): 0.347 / 0.342
+[13/30 epoch] [29745 iter]	 loss_D: 0.731 	 loss_G: 1.391	 D(x):0.715 	 D(G(z)): 0.289 / 0.284
+[13/30 epoch] [30245 iter]	 loss_D: 0.865 	 loss_G: 1.393	 D(x):0.597 	 D(G(z)): 0.249 / 0.272
+[13/30 epoch] [30745 iter]	 loss_D: 0.904 	 loss_G: 1.236	 D(x):0.635 	 D(G(z)): 0.323 / 0.337
+[13/30 epoch] [31245 iter]	 loss_D: 0.613 	 loss_G: 1.395	 D(x):0.783 	 D(G(z)): 0.287 / 0.271
+	Training at epochID-12 | avg. netD loss: 0.772 | avg. netG loss 1.343
+	Run time per epoch: 2m 13s
+[14/30 epoch] [31682 iter]	 loss_D: 0.827 	 loss_G: 1.295	 D(x):0.659 	 D(G(z)): 0.301 / 0.302
+[14/30 epoch] [32182 iter]	 loss_D: 0.792 	 loss_G: 1.308	 D(x):0.664 	 D(G(z)): 0.287 / 0.290
+[14/30 epoch] [32682 iter]	 loss_D: 0.629 	 loss_G: 1.628	 D(x):0.719 	 D(G(z)): 0.237 / 0.221
+[14/30 epoch] [33182 iter]	 loss_D: 0.742 	 loss_G: 1.424	 D(x):0.705 	 D(G(z)): 0.290 / 0.283
+[14/30 epoch] [33682 iter]	 loss_D: 0.661 	 loss_G: 1.351	 D(x):0.781 	 D(G(z)): 0.309 / 0.300
+	Training at epochID-13 | avg. netD loss: 0.758 | avg. netG loss 1.366
+	Run time per epoch: 2m 22s
+[15/30 epoch] [34119 iter]	 loss_D: 0.652 	 loss_G: 1.501	 D(x):0.751 	 D(G(z)): 0.283 / 0.261
+[15/30 epoch] [34619 iter]	 loss_D: 0.599 	 loss_G: 1.498	 D(x):0.777 	 D(G(z)): 0.260 / 0.261
+[15/30 epoch] [35119 iter]	 loss_D: 0.439 	 loss_G: 1.494	 D(x):0.959 	 D(G(z)): 0.309 / 0.262
+[15/30 epoch] [35619 iter]	 loss_D: 0.687 	 loss_G: 1.505	 D(x):0.687 	 D(G(z)): 0.236 / 0.254
+[15/30 epoch] [36119 iter]	 loss_D: 0.755 	 loss_G: 1.493	 D(x):0.652 	 D(G(z)): 0.251 / 0.248
+	Training at epochID-14 | avg. netD loss: 0.752 | avg. netG loss 1.379
+	Run time per epoch: 2m 20s
+[16/30 epoch] [36556 iter]	 loss_D: 0.951 	 loss_G: 1.119	 D(x):0.636 	 D(G(z)): 0.354 / 0.355
+[16/30 epoch] [37056 iter]	 loss_D: 0.970 	 loss_G: 1.150	 D(x):0.643 	 D(G(z)): 0.362 / 0.359
+[16/30 epoch] [37556 iter]	 loss_D: 0.686 	 loss_G: 1.346	 D(x):0.761 	 D(G(z)): 0.302 / 0.301
+[16/30 epoch] [38056 iter]	 loss_D: 0.796 	 loss_G: 1.436	 D(x):0.664 	 D(G(z)): 0.277 / 0.278
+[16/30 epoch] [38556 iter]	 loss_D: 0.692 	 loss_G: 1.439	 D(x):0.700 	 D(G(z)): 0.259 / 0.259
+	Training at epochID-15 | avg. netD loss: 0.733 | avg. netG loss 1.383
+	Run time per epoch: 2m 20s
+[17/30 epoch] [38993 iter]	 loss_D: 0.432 	 loss_G: 1.329	 D(x):0.947 	 D(G(z)): 0.300 / 0.295
+[17/30 epoch] [39493 iter]	 loss_D: 0.910 	 loss_G: 1.377	 D(x):0.599 	 D(G(z)): 0.280 / 0.282
+[17/30 epoch] [39993 iter]	 loss_D: 0.799 	 loss_G: 1.427	 D(x):0.663 	 D(G(z)): 0.282 / 0.282
+[17/30 epoch] [40493 iter]	 loss_D: 0.565 	 loss_G: 1.304	 D(x):0.859 	 D(G(z)): 0.316 / 0.313
+[17/30 epoch] [40993 iter]	 loss_D: 0.868 	 loss_G: 1.360	 D(x):0.632 	 D(G(z)): 0.287 / 0.289
+	Training at epochID-16 | avg. netD loss: 0.733 | avg. netG loss 1.378
+	Run time per epoch: 2m 14s
+[18/30 epoch] [41430 iter]	 loss_D: 0.849 	 loss_G: 1.304	 D(x):0.662 	 D(G(z)): 0.310 / 0.310
+[18/30 epoch] [41930 iter]	 loss_D: 0.684 	 loss_G: 1.609	 D(x):0.692 	 D(G(z)): 0.240 / 0.240
+[18/30 epoch] [42430 iter]	 loss_D: 1.530 	 loss_G: 0.551	 D(x):0.627 	 D(G(z)): 0.605 / 0.597
+[18/30 epoch] [42930 iter]	 loss_D: 0.819 	 loss_G: 1.208	 D(x):0.694 	 D(G(z)): 0.330 / 0.328
+[18/30 epoch] [43430 iter]	 loss_D: 0.385 	 loss_G: 1.536	 D(x):0.926 	 D(G(z)): 0.252 / 0.249
+	Training at epochID-17 | avg. netD loss: 0.725 | avg. netG loss 1.390
+	Run time per epoch: 2m 23s
+[19/30 epoch] [43867 iter]	 loss_D: 0.827 	 loss_G: 1.465	 D(x):0.619 	 D(G(z)): 0.255 / 0.257
+[19/30 epoch] [44367 iter]	 loss_D: 0.788 	 loss_G: 1.373	 D(x):0.661 	 D(G(z)): 0.281 / 0.282
+[19/30 epoch] [44867 iter]	 loss_D: 0.434 	 loss_G: 1.645	 D(x):0.851 	 D(G(z)): 0.221 / 0.220
+[19/30 epoch] [45367 iter]	 loss_D: 0.695 	 loss_G: 1.488	 D(x):0.708 	 D(G(z)): 0.265 / 0.265
+[19/30 epoch] [45867 iter]	 loss_D: 0.766 	 loss_G: 1.555	 D(x):0.651 	 D(G(z)): 0.246 / 0.246
+	Training at epochID-18 | avg. netD loss: 0.721 | avg. netG loss 1.396
+	Run time per epoch: 2m 17s
+[20/30 epoch] [46304 iter]	 loss_D: 0.659 	 loss_G: 1.414	 D(x):0.736 	 D(G(z)): 0.271 / 0.272
+[20/30 epoch] [46804 iter]	 loss_D: 0.663 	 loss_G: 1.272	 D(x):0.797 	 D(G(z)): 0.327 / 0.325
+[20/30 epoch] [47304 iter]	 loss_D: 0.851 	 loss_G: 1.424	 D(x):0.640 	 D(G(z)): 0.277 / 0.277
+[20/30 epoch] [47804 iter]	 loss_D: 0.756 	 loss_G: 1.275	 D(x):0.702 	 D(G(z)): 0.304 / 0.303
+[20/30 epoch] [48304 iter]	 loss_D: 0.731 	 loss_G: 1.430	 D(x):0.681 	 D(G(z)): 0.267 / 0.267
+	Training at epochID-19 | avg. netD loss: 0.722 | avg. netG loss 1.394
+	Run time per epoch: 2m 23s
+[21/30 epoch] [48741 iter]	 loss_D: 0.637 	 loss_G: 1.518	 D(x):0.724 	 D(G(z)): 0.242 / 0.242
+[21/30 epoch] [49241 iter]	 loss_D: 0.695 	 loss_G: 1.150	 D(x):0.797 	 D(G(z)): 0.347 / 0.346
+[21/30 epoch] [49741 iter]	 loss_D: 0.646 	 loss_G: 1.372	 D(x):0.774 	 D(G(z)): 0.296 / 0.295
+[21/30 epoch] [50241 iter]	 loss_D: 0.757 	 loss_G: 1.709	 D(x):0.621 	 D(G(z)): 0.208 / 0.208
+[21/30 epoch] [50741 iter]	 loss_D: 0.660 	 loss_G: 1.394	 D(x):0.746 	 D(G(z)): 0.278 / 0.278
+	Training at epochID-20 | avg. netD loss: 0.718 | avg. netG loss 1.403
+	Run time per epoch: 2m 17s
+[22/30 epoch] [51178 iter]	 loss_D: 0.856 	 loss_G: 1.312	 D(x):0.647 	 D(G(z)): 0.293 / 0.293
+[22/30 epoch] [51678 iter]	 loss_D: 0.738 	 loss_G: 1.363	 D(x):0.705 	 D(G(z)): 0.282 / 0.282
+[22/30 epoch] [52178 iter]	 loss_D: 0.658 	 loss_G: 1.526	 D(x):0.731 	 D(G(z)): 0.258 / 0.258
+[22/30 epoch] [52678 iter]	 loss_D: 0.816 	 loss_G: 1.343	 D(x):0.654 	 D(G(z)): 0.288 / 0.288
+[22/30 epoch] [53178 iter]	 loss_D: 0.642 	 loss_G: 1.530	 D(x):0.735 	 D(G(z)): 0.256 / 0.256
+	Training at epochID-21 | avg. netD loss: 0.721 | avg. netG loss 1.397
+	Run time per epoch: 2m 15s
+[23/30 epoch] [53615 iter]	 loss_D: 0.834 	 loss_G: 1.350	 D(x):0.658 	 D(G(z)): 0.304 / 0.304
+[23/30 epoch] [54115 iter]	 loss_D: 0.753 	 loss_G: 1.531	 D(x):0.650 	 D(G(z)): 0.237 / 0.237
+[23/30 epoch] [54615 iter]	 loss_D: 0.883 	 loss_G: 1.295	 D(x):0.634 	 D(G(z)): 0.304 / 0.304
+[23/30 epoch] [55115 iter]	 loss_D: 0.720 	 loss_G: 1.435	 D(x):0.697 	 D(G(z)): 0.274 / 0.274
+[23/30 epoch] [55615 iter]	 loss_D: 0.715 	 loss_G: 1.670	 D(x):0.647 	 D(G(z)): 0.210 / 0.210
+	Training at epochID-22 | avg. netD loss: 0.719 | avg. netG loss 1.393
+	Run time per epoch: 2m 21s
+[24/30 epoch] [56052 iter]	 loss_D: 0.607 	 loss_G: 1.440	 D(x):0.763 	 D(G(z)): 0.263 / 0.263
+[24/30 epoch] [56552 iter]	 loss_D: 0.923 	 loss_G: 1.264	 D(x):0.617 	 D(G(z)): 0.314 / 0.314
+[24/30 epoch] [57052 iter]	 loss_D: 0.759 	 loss_G: 1.605	 D(x):0.631 	 D(G(z)): 0.228 / 0.228
+[24/30 epoch] [57552 iter]	 loss_D: 0.628 	 loss_G: 1.612	 D(x):0.716 	 D(G(z)): 0.229 / 0.229
+[24/30 epoch] [58052 iter]	 loss_D: 0.848 	 loss_G: 1.332	 D(x):0.644 	 D(G(z)): 0.297 / 0.297
+	Training at epochID-23 | avg. netD loss: 0.716 | avg. netG loss 1.398
+	Run time per epoch: 2m 21s
+[25/30 epoch] [58489 iter]	 loss_D: 0.694 	 loss_G: 1.581	 D(x):0.685 	 D(G(z)): 0.238 / 0.238
+[25/30 epoch] [58989 iter]	 loss_D: 0.701 	 loss_G: 1.426	 D(x):0.728 	 D(G(z)): 0.282 / 0.282
+[25/30 epoch] [59489 iter]	 loss_D: 0.705 	 loss_G: 1.375	 D(x):0.731 	 D(G(z)): 0.283 / 0.283
+[25/30 epoch] [59989 iter]	 loss_D: 0.595 	 loss_G: 1.634	 D(x):0.741 	 D(G(z)): 0.226 / 0.226
+[25/30 epoch] [60489 iter]	 loss_D: 0.757 	 loss_G: 1.457	 D(x):0.676 	 D(G(z)): 0.265 / 0.265
+	Training at epochID-24 | avg. netD loss: 0.716 | avg. netG loss 1.399
+	Run time per epoch: 2m 22s
+[26/30 epoch] [60926 iter]	 loss_D: 0.583 	 loss_G: 1.390	 D(x):0.792 	 D(G(z)): 0.276 / 0.276
+[26/30 epoch] [61426 iter]	 loss_D: 0.635 	 loss_G: 1.453	 D(x):0.750 	 D(G(z)): 0.265 / 0.265
+[26/30 epoch] [61926 iter]	 loss_D: 0.680 	 loss_G: 1.321	 D(x):0.750 	 D(G(z)): 0.298 / 0.298
+[26/30 epoch] [62426 iter]	 loss_D: 0.804 	 loss_G: 1.352	 D(x):0.651 	 D(G(z)): 0.281 / 0.281
+[26/30 epoch] [62926 iter]	 loss_D: 0.630 	 loss_G: 1.316	 D(x):0.803 	 D(G(z)): 0.309 / 0.309
+	Training at epochID-25 | avg. netD loss: 0.719 | avg. netG loss 1.398
+	Run time per epoch: 2m 14s
+[27/30 epoch] [63363 iter]	 loss_D: 0.697 	 loss_G: 1.561	 D(x):0.683 	 D(G(z)): 0.243 / 0.243
+[27/30 epoch] [63863 iter]	 loss_D: 0.842 	 loss_G: 1.300	 D(x):0.653 	 D(G(z)): 0.310 / 0.310
+[27/30 epoch] [64363 iter]	 loss_D: 0.675 	 loss_G: 1.518	 D(x):0.727 	 D(G(z)): 0.266 / 0.266
+[27/30 epoch] [64863 iter]	 loss_D: 0.818 	 loss_G: 1.426	 D(x):0.649 	 D(G(z)): 0.269 / 0.269
+[27/30 epoch] [65363 iter]	 loss_D: 0.665 	 loss_G: 1.440	 D(x):0.734 	 D(G(z)): 0.276 / 0.276
+	Training at epochID-26 | avg. netD loss: 0.717 | avg. netG loss 1.398
+	Run time per epoch: 2m 14s
+[28/30 epoch] [65800 iter]	 loss_D: 0.887 	 loss_G: 1.288	 D(x):0.628 	 D(G(z)): 0.299 / 0.299
+[28/30 epoch] [66300 iter]	 loss_D: 0.781 	 loss_G: 1.195	 D(x):0.727 	 D(G(z)): 0.342 / 0.342
+[28/30 epoch] [66800 iter]	 loss_D: 0.792 	 loss_G: 1.398	 D(x):0.660 	 D(G(z)): 0.282 / 0.282
+[28/30 epoch] [67300 iter]	 loss_D: 0.584 	 loss_G: 1.400	 D(x):0.794 	 D(G(z)): 0.274 / 0.274
+[28/30 epoch] [67800 iter]	 loss_D: 0.532 	 loss_G: 1.474	 D(x):0.823 	 D(G(z)): 0.266 / 0.266
+	Training at epochID-27 | avg. netD loss: 0.716 | avg. netG loss 1.397
+	Run time per epoch: 2m 22s
+[29/30 epoch] [68237 iter]	 loss_D: 0.666 	 loss_G: 1.457	 D(x):0.717 	 D(G(z)): 0.255 / 0.255
+[29/30 epoch] [68737 iter]	 loss_D: 0.494 	 loss_G: 1.504	 D(x):0.844 	 D(G(z)): 0.263 / 0.263
+[29/30 epoch] [69237 iter]	 loss_D: 0.451 	 loss_G: 1.414	 D(x):0.908 	 D(G(z)): 0.283 / 0.283
+[29/30 epoch] [69737 iter]	 loss_D: 0.698 	 loss_G: 1.470	 D(x):0.702 	 D(G(z)): 0.261 / 0.261
+[29/30 epoch] [70237 iter]	 loss_D: 0.529 	 loss_G: 1.820	 D(x):0.752 	 D(G(z)): 0.194 / 0.194
+	Training at epochID-28 | avg. netD loss: 0.719 | avg. netG loss 1.395
+	Run time per epoch: 2m 22s
+[30/30 epoch] [70674 iter]	 loss_D: 0.724 	 loss_G: 1.370	 D(x):0.693 	 D(G(z)): 0.275 / 0.275
+[30/30 epoch] [71174 iter]	 loss_D: 0.655 	 loss_G: 1.422	 D(x):0.761 	 D(G(z)): 0.279 / 0.279
+[30/30 epoch] [71674 iter]	 loss_D: 0.429 	 loss_G: 1.223	 D(x):0.963 	 D(G(z)): 0.314 / 0.314
+[30/30 epoch] [72174 iter]	 loss_D: 0.760 	 loss_G: 1.315	 D(x):0.704 	 D(G(z)): 0.301 / 0.301
+[30/30 epoch] [72674 iter]	 loss_D: 0.784 	 loss_G: 1.390	 D(x):0.673 	 D(G(z)): 0.284 / 0.284
+	Training at epochID-29 | avg. netD loss: 0.719 | avg. netG loss 1.398
+	Run time per epoch: 2m 20s

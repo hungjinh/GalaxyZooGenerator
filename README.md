@@ -49,10 +49,10 @@ There are currently two generative models available.
 &emsp;`python3 bin/train_dcgan.py --config configs/dcgan_test.yaml > experiments/dcgan_test.log` <br>
 &emsp; or <br>
 &emsp;`python3 bin/train_vae.py --config configs/vae_test.yaml > experiments/vae_test.log` <br> 
-<br>
-&emsp; Alternatively, one can also train the network following the demo notebooks : <br>
-&emsp;&emsp; [[demo] dcgan example training run.ipynb](https://github.com/hungjinh/GalaxyZooGenerator/blob/master/notebooks/%5Bdemo%5D%20dcgan%20example%20training%20run.ipynb) <br>
-&emsp;&emsp; [[demo] VAE example training run.ipynb](https://github.com/hungjinh/GalaxyZooGenerator/blob/master/notebooks/%5Bdemo%5D%20VAE%20example%20training%20run.ipynb) <br>
+
+- Alternatively, one can also train the network following the demo notebooks : <br>
+&emsp; [[demo] dcgan example training run.ipynb](https://github.com/hungjinh/GalaxyZooGenerator/blob/master/notebooks/%5Bdemo%5D%20dcgan%20example%20training%20run.ipynb) <br>
+&emsp; [[demo] VAE example training run.ipynb](https://github.com/hungjinh/GalaxyZooGenerator/blob/master/notebooks/%5Bdemo%5D%20VAE%20example%20training%20run.ipynb) <br>
 
 
 ## Results

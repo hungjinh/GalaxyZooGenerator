@@ -7,8 +7,8 @@ notebooks/develop/*
 experiments/*
 !experiments/dcgan_run0.log
 !experiments/vae_run0.log
-!experiments/vae_test
-!experiments/dcgan_test
+#!experiments/vae_test
+#!experiments/dcgan_test
 
 configs/*
 !configs/dcgan_run0.yaml
